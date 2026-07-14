@@ -1,113 +1,165 @@
 <!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <!-- Bootstrap CSS -->
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href="base.css">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous" />
+    <link rel="stylesheet" href="base.css" />
+    <link rel="stylesheet" href="style.css" />
     <title>Picsum Dynamic Values</title>
-</head>
+  </head>
 
-<body class="mb-5">
-
+  <body class="mb-5">
     <header class="container-fluid p-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 offset-md-2">
-                    <h1 class="display-5 text-center font-weight-light">Updating picsum values dynamically using Javascript</h1>
-                </div>
-            </div>
-
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 offset-md-2">
+            <h1 class="display-5 text-center font-weight-light">Updating picsum values dynamically using Javascript</h1>
+          </div>
         </div>
+      </div>
     </header>
 
     <!-- HtML IMG -->
     <div class="container">
-        <div class="row mt-4">
-            <div class="col-md-12">
-                <h2 class="display-5 font-weight-light text-center">HTML - IMG Tag</h2>
-            </div>
+      <div class="row mt-4">
+        <div class="col-md-12">
+          <h2 class="display-5 font-weight-light text-center">HTML - IMG Tag</h2>
         </div>
-        <div class="row mt-2">
-            <div class="col-md-12 ">
-                <div class="controls d-flex justify-content-center">
-                    <div class="float-left">
-                        <label class="text-center" for="id">Image ID</label>
-                        <input type="text">
-                    </div>
-
-                    <div class="float-left">
-                        <label class="text-center" for="id">Width</label>
-                        <input type="text">
-                    </div>
-
-                    <div class="float-left">
-                        <label class="text-center" for="id">Height</label>
-                        <input type="text">
-                    </div>
-                </div>
-
+      </div>
+      <div class="row mt-2">
+        <div class="col-md-12">
+          <div class="controls d-flex justify-content-center flex-wrap">
+            <div class="float-left">
+              <label class="text-center" for="html-seed">Seed</label>
+              <input type="text" id="html-seed" value="100" />
             </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col-md-12">
 
-                <img class="img-fluid rounded img-html" src="https://picsum.photos/id/100/1140/400/?blur=10'" alt="">
+            <div class="float-left">
+              <label class="text-center" for="html-width">Width</label>
+              <input type="text" id="html-width" value="1140" />
             </div>
+
+            <div class="float-left">
+              <label class="text-center" for="html-height">Height</label>
+              <input type="text" id="html-height" value="400" />
+            </div>
+
+            <div class="float-left">
+              <label class="text-center" for="html-blur">Blur (<span id="html-blur-value">0</span>)</label>
+              <input type="range" min="0" max="10" value="0" id="html-blur" />
+            </div>
+
+            <div class="float-left">
+              <label class="text-center" for="html-grayscale">Grayscale</label>
+              <input type="checkbox" id="html-grayscale" />
+            </div>
+
+            <div class="float-left">
+              <label class="text-center">&nbsp;</label>
+              <button type="button" class="btn btn-outline-secondary btn-sm" id="html-random">Random</button>
+            </div>
+          </div>
         </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-md-12">
+          <img class="img-fluid rounded img-html" id="img-html" src="https://picsum.photos/seed/100/1140/400" alt="" />
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-md-12">
+          <div class="input-group">
+            <input type="text" class="form-control" id="html-url" readonly />
+            <div class="input-group-append">
+              <button type="button" class="btn btn-outline-secondary" id="html-copy">Copy</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Background Image CSS -->
 
     <div class="container">
-        <div class="row mt-4">
-            <div class="col-md-12">
-                <h2 class="display-5 font-weight-light text-center">CSS - Background-image</h2>
-            </div>
+      <div class="row mt-4">
+        <div class="col-md-12">
+          <h2 class="display-5 font-weight-light text-center">CSS - Background-image</h2>
         </div>
-        <div class="row mt-4">
-            <div class="col-md-12">
-                <div class="controls d-flex justify-content-center">
-                    <div class="float-left">
-                        <label class="text-center" for="id">Image ID</label>
-                        <input type="text">
-                    </div>
-
-                    <div class="float-left">
-                        <label class="text-center" for="id">Width</label>
-                        <input type="text">
-                    </div>
-
-                    <div class="float-left">
-                        <label class="text-center" for="id">Height</label>
-                        <input type="text">
-                    </div>
-                </div>
-
+      </div>
+      <div class="row mt-4">
+        <div class="col-md-12">
+          <div class="controls d-flex justify-content-center flex-wrap">
+            <div class="float-left">
+              <label class="text-center" for="css-seed">Seed</label>
+              <input type="text" id="css-seed" value="100" />
             </div>
-        </div>
-        <div class="row mt-2 ">
-            <div class="col-md-12">
-                <div class="img-css rounded"></div>
+
+            <div class="float-left">
+              <label class="text-center" for="css-width">Width</label>
+              <input type="text" id="css-width" value="1140" />
             </div>
+
+            <div class="float-left">
+              <label class="text-center" for="css-height">Height</label>
+              <input type="text" id="css-height" value="400" />
+            </div>
+
+            <div class="float-left">
+              <label class="text-center" for="css-blur">Blur (<span id="css-blur-value">0</span>)</label>
+              <input type="range" min="0" max="10" value="0" id="css-blur" />
+            </div>
+
+            <div class="float-left">
+              <label class="text-center" for="css-grayscale">Grayscale</label>
+              <input type="checkbox" id="css-grayscale" />
+            </div>
+
+            <div class="float-left">
+              <label class="text-center">&nbsp;</label>
+              <button type="button" class="btn btn-outline-secondary btn-sm" id="css-random">Random</button>
+            </div>
+          </div>
         </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-md-12">
+          <div class="img-css rounded" id="img-css"></div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-md-12">
+          <div class="input-group">
+            <input type="text" class="form-control" id="css-url" readonly />
+            <div class="input-group-append">
+              <button type="button" class="btn btn-outline-secondary" id="css-copy">Copy</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-
-
-
-
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-</body>
-
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+  </body>
 </html>
