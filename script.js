@@ -1,9 +1,21 @@
 function buildPicsumUrl({ seed, width, height, grayscale, blur }) {
+  const safeSeed = encodeURIComponent(String(seed).trim()) || 'picsum';
+  const safeWidth = Number(width) > 0 ? Math.floor(Number(width)) : 300;
+  const safeHeight = Number(height) > 0 ? Math.floor(Number(height)) : 300;
+
   const params = [];
   if (grayscale) params.push('grayscale');
   if (blur > 0) params.push(`blur=${blur}`);
   const query = params.length ? `?${params.join('&')}` : '';
-  return `https://picsum.photos/seed/${seed}/${width}/${height}${query}`;
+  return `https://picsum.photos/seed/${safeSeed}/${safeWidth}/${safeHeight}${query}`;
+}
+
+function debounce(fn, delay) {
+  let timeoutId;
+  return (...args) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => fn(...args), delay);
+  };
 }
 
 function updateHtmlImage() {
@@ -36,25 +48,47 @@ function updateCssImage() {
 
 function copyToClipboard(inputId, buttonEl) {
   const input = document.getElementById(inputId);
-  navigator.clipboard.writeText(input.value);
-
   const originalText = buttonEl.textContent;
-  buttonEl.textContent = 'Copied!';
-  setTimeout(() => {
-    buttonEl.textContent = originalText;
-  }, 1500);
+
+  const showFeedback = (text) => {
+    buttonEl.textContent = text;
+    setTimeout(() => {
+      buttonEl.textContent = originalText;
+    }, 1500);
+  };
+
+  if (!navigator.clipboard) {
+    showFeedback('Copy failed');
+    return;
+  }
+
+  navigator.clipboard
+    .writeText(input.value)
+    .then(() => showFeedback('Copied!'))
+    .catch(() => showFeedback('Copy failed'));
 }
 
 function randomSeed() {
   return Math.random().toString(36).slice(2, 8);
 }
 
+const debouncedUpdateHtmlImage = debounce(updateHtmlImage, 300);
+const debouncedUpdateCssImage = debounce(updateCssImage, 300);
+
 ['html-seed', 'html-width', 'html-height', 'html-blur', 'html-grayscale'].forEach((id) => {
-  document.getElementById(id).addEventListener('input', updateHtmlImage);
+  document.getElementById(id).addEventListener('input', debouncedUpdateHtmlImage);
 });
 
 ['css-seed', 'css-width', 'css-height', 'css-blur', 'css-grayscale'].forEach((id) => {
-  document.getElementById(id).addEventListener('input', updateCssImage);
+  document.getElementById(id).addEventListener('input', debouncedUpdateCssImage);
+});
+
+document.getElementById('html-blur').addEventListener('input', (event) => {
+  document.getElementById('html-blur-value').textContent = event.target.value;
+});
+
+document.getElementById('css-blur').addEventListener('input', (event) => {
+  document.getElementById('css-blur-value').textContent = event.target.value;
 });
 
 document.getElementById('html-random').addEventListener('click', () => {
