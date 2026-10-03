@@ -2,6 +2,8 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+**Repository:** https://github.com/leo12534/picsum-dynamic-values
+
 ## What this is
 
 A static, no-build demo/portfolio page showing how to update picsum.photos images dynamically with vanilla JavaScript, using two parallel techniques side by side: an `<img>` tag and a CSS `background-image`. It has also grown into a small practical "picsum URL builder" (seed/width/height/grayscale/blur controls, a random-seed button, and a copy-to-clipboard URL output) for each of the two sections.
